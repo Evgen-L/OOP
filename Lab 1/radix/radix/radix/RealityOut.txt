@@ -1,0 +1,2 @@
+Incorrect input. Please enter correct input: <input file> <original number system> <final number system> <number>
+Incorrect input agrumnets.

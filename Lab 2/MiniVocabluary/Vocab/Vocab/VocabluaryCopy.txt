@@ -1,0 +1,4 @@
+cat = кошка
+elephant = слон
+кошка = cat
+слон = elephant
