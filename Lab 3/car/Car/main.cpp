@@ -4,7 +4,6 @@
 #include <string>
 #include <sstream>
 
-
 enum class Commands
 {
 	INFO,
@@ -88,42 +87,6 @@ void getCarInfo(Car& car)
 	PrintGearInfo(car);
 }
 
-void TurnOnEngine(Car& car) 
-{
-	car.TurnOnEngine();
-	cout << "The engine is turned on successfully!" << endl << endl;
-}
-
-void TurnOffEngine(Car& car)
-{
-	if (car.TurnOffEngine()) 
-	{
-		cout << "The engine is turned off successfully!" << endl << endl;
-		return;
-	}
-	cout << "Engine shutdown error!" << endl << endl;
-}
-
-void SetGear(Car& car, int gear)
-{
-	if (car.SetGear(gear)) 
-	{
-		cout << gear << " gear set" << endl << endl;
-		return;
-	}
-	cout << gear << " gear can\'t be set" << endl << endl;
-}
-
-void SetSpeed(Car& car, int speed)
-{
-	if (car.SetSpeed(speed))
-	{
-		cout << speed << " speed set" << endl << endl;
-		return;
-	}
-	cout << speed << " speed can\'t be set" << endl << endl;
-}
-
 void ControllCar(Car& car) 
 {
 	string userAppeal;
@@ -141,18 +104,18 @@ void ControllCar(Car& car)
 				break;
 			
 			case Commands::ENGINE_ON:
-				TurnOnEngine(car);
+				car.TurnOnEngine();
 				break;
 			
 			case Commands::ENGINE_OFF:
-				TurnOffEngine(car);
+				car.TurnOffEngine();
 				break;
 
 			case Commands::SET_GEAR:
 				int gear;
 				if (stringAppeal >> gear) 
 				{
-					SetGear(car, gear);
+					car.SetGear(gear);
 					break;
 				}
 				cout << "Incorrect gear parameter format";
@@ -162,7 +125,7 @@ void ControllCar(Car& car)
 				int speed;
 				if (stringAppeal >> speed)
 				{
-					SetSpeed(car, speed);
+					car.SetSpeed(speed);
 					break;
 				}
 				cout << "Incorrect speed parameter format";
@@ -180,4 +143,3 @@ int main()
 	ControllCar(car);
 	return 0;
 }
-
