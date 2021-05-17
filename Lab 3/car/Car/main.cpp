@@ -20,7 +20,17 @@ const map<string, Commands> commands_storage = {
 	{ "SetGear", Commands::SET_GEAR },
 	{ "SetSpeed", Commands::SET_SPEED },
 };
-
+const string ENGINE = "Engine: ";
+const string DIRECTION = "Direction: ";
+const string SPEED = "Speed: ";
+const string GEAR = "GEAR: ";
+const string INCORRECT_GEAR_FORMAT = "Incorrect gear parameter format\n\n";
+const string INCORRECT_SPEED_FORMAT = "Incorrect speed parameter format\n\n";
+const string ON = "On\n";
+const string OFF = "Off\n";
+const string BACK = "Back\n";
+const string WITHOUT_DIRECTION = "Without direction\n";
+const string FORWARD = "Forward\n";
 using namespace std;
 
 bool GetCommand(stringstream& stringAppeal, Commands& command)
@@ -37,30 +47,30 @@ bool GetCommand(stringstream& stringAppeal, Commands& command)
 
 void PrintEngineInfo(Car& car) 
 {
-	cout << "Engine: ";
+	cout << ENGINE;
 	if (car.IsTurnedOn())
 	{
-		cout << "On" << endl;
+		cout << ON;
 	}
 	else
 	{
-		cout << "Off" << endl;
+		cout << OFF;
 	}
 }
 
 void PrintDirectionInfo(Car& car)
 {
-	cout << "Direction: ";
+	cout << DIRECTION;
 	switch (car.GetDirection())
 	{
 	case -1:
-		cout << "Back" << endl;
+		cout << BACK;
 		break;
 	case 0:
-		cout << "Without direction" << endl;
+		cout << WITHOUT_DIRECTION;
 		break;
 	case 1:
-		cout << "Forward" << endl;
+		cout << FORWARD;
 		break;
 	default:
 		break;
@@ -69,13 +79,13 @@ void PrintDirectionInfo(Car& car)
 
 void PrintSpeedInfo(Car& car)
 {
-	cout << "Speed: ";
+	cout << SPEED;
 	cout << car.GetSpeed() << endl;
 }
 
 void PrintGearInfo(Car& car)
 {
-	cout << "Gear: ";
+	cout << GEAR;
 	cout << car.GetGear() << endl;
 }
 
@@ -118,7 +128,7 @@ void ControllCar(Car& car)
 					car.SetGear(gear);
 					break;
 				}
-				cout << "Incorrect gear parameter format";
+				cout << INCORRECT_GEAR_FORMAT;
 				break;
 			
 			case Commands::SET_SPEED:
@@ -128,7 +138,7 @@ void ControllCar(Car& car)
 					car.SetSpeed(speed);
 					break;
 				}
-				cout << "Incorrect speed parameter format";
+				cout << INCORRECT_SPEED_FORMAT;
 				break;
 			default:
 				break;
