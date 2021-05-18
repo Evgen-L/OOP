@@ -1,8 +1,9 @@
-#include "CarController.h"
-#include <iostream>
+﻿#include <iostream>
 #include <sstream>
 #include <string>
 #include <sstream>
+#include <map>
+#include "../Car/Car.h"
 
 
 enum class Commands
@@ -49,7 +50,7 @@ const string SUCCESS_TURNED_OFF = "The engine is turned off successfully!\n\n";
 const string SHUTDOWN_ERROR = "shutdown error!\n\n";
 const string GEAR_CANNOT_SET = " gear can\'t be set\n";
 const string GEAR_SET = " gear set\n\n";
-const string SPEED_CANNOT_SET = " speed can\'t be set\n";
+const string SPEED_CANNOT_SET = "speed can\'t be set\n";
 const string SPEED_SET = " speed set\n\n";
 
 const string REASON_CANNOT_SHUTDOWN_ENGINE_WHEN_SPEED_GEAR_NULL = "reason: can\'t shutdown engine when speed or gear are not at 0\n\n ";
@@ -155,7 +156,7 @@ bool TurnOffEngine(Car& car)
 	return false;
 }
 
-bool SetGear(Car& car, int gear) 
+bool SetGear(Car& car, int gear)
 {
 	//conditions for false
 	if (gear < MIN_GEAR || gear > MAX_GEAR)
@@ -220,56 +221,4 @@ bool SetSpeed(Car& car, int speed)
 	cout << speed << SPEED_CANNOT_SET;
 	cout << REASON_SPEED_OUT_OF_RANGE_OF_GEAR;
 	return false;
-}
-
-CarController::CarController() {};
-
-void CarController::ControllCar(Car& car) 
-{
-	string userAppeal;
-	while (getline(cin, userAppeal))
-	{
-		stringstream stringAppeal(userAppeal);
-		Commands command;
-		if (GetCommand(stringAppeal, command))
-		{
-			switch (command)
-			{
-
-			case Commands::INFO:
-				getCarInfo(car);
-				break;
-
-			case Commands::ENGINE_ON:
-				TurnOnEngine(car);
-				break;
-
-			case Commands::ENGINE_OFF:
-				TurnOffEngine(car);
-				break;
-
-			case Commands::SET_GEAR:
-				int gear;
-				if (stringAppeal >> gear)
-				{
-					SetGear(car, gear);
-					break;
-				}
-				cout << INCORRECT_GEAR_FORMAT;
-				break;
-
-			case Commands::SET_SPEED:
-				int speed;
-				if (stringAppeal >> speed)
-				{
-					SetSpeed(car, speed);
-					break;
-				}
-				cout << INCORRECT_SPEED_FORMAT;
-				break;
-			default:
-				break;
-			}
-		}
-	}
 }
