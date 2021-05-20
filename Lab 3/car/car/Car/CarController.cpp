@@ -2,17 +2,6 @@
 #include <iostream>
 #include <sstream>
 #include <string>
-#include <sstream>
-
-
-enum class Commands
-{
-	INFO,
-	ENGINE_ON,
-	ENGINE_OFF,
-	SET_GEAR,
-	SET_SPEED
-};
 
 const map<string, Commands> commands_storage = {
 	{"Info", Commands::INFO},
@@ -61,10 +50,13 @@ const string REASON_GEAR_NOT_SUPPORT_SPEED = "reason: the gear doesn\'t support 
 const string REASON_ENGINE_OFF = "reason: engine turned off\n\n";
 const string REASON_CANNOT_INCREASE_SPEED_IN_NEUTRAL_GEAR = "reason: can't increase the speed in neutral gear\n\n";
 const string REASON_SPEED_OUT_OF_RANGE_OF_GEAR = "reason: the speed is out of the range of gear\n\n";
+const string COMMAND_NOT_EXIST= "This command does not exist\n\n";
 
 using namespace std;
 
-bool GetCommand(stringstream& stringAppeal, Commands& command)
+
+
+bool CarController::GetCommand(stringstream& stringAppeal, Commands& command) 
 {
 	string stringCommand;
 	stringAppeal >> stringCommand;
@@ -76,7 +68,8 @@ bool GetCommand(stringstream& stringAppeal, Commands& command)
 	return false;
 }
 
-void PrintEngineInfo(Car& car)
+
+void CarController::PrintEngineInfo(Car& car) const
 {
 	cout << ENGINE;
 	if (car.IsTurnedOn())
@@ -89,7 +82,7 @@ void PrintEngineInfo(Car& car)
 	}
 }
 
-void PrintDirectionInfo(Car& car)
+void CarController::PrintDirectionInfo(Car& car) const
 {
 	cout << DIRECTION;
 	switch (car.GetDirection())
@@ -108,34 +101,35 @@ void PrintDirectionInfo(Car& car)
 	}
 }
 
-void PrintSpeedInfo(Car& car)
+void CarController::PrintSpeedInfo(Car& car) const
 {
 	cout << SPEED;
 	cout << car.GetSpeed() << endl;
 }
 
-void PrintGearInfo(Car& car)
+void CarController::PrintGearInfo(Car& car) const
 {
 	cout << GEAR;
 	cout << car.GetGear() << endl;
 }
 
-void getCarInfo(Car& car)
+void CarController::getCarInfo(Car& car) const
 {
-	PrintEngineInfo(car);
-	PrintDirectionInfo(car);
-	PrintSpeedInfo(car);
-	PrintGearInfo(car);
+	CarController::PrintEngineInfo(car);
+	CarController::PrintDirectionInfo(car);
+	CarController::PrintSpeedInfo(car);
+	CarController::PrintGearInfo(car);
+	cout << endl;
 }
 
-bool TurnOnEngine(Car& car)
+bool CarController::TurnOnEngine(Car& car) 
 {
 	car.TurnOnEngine();
 	cout << SUCCESS_TURNED_ON;
 	return true;
 }
 
-bool TurnOffEngine(Car& car)
+bool CarController::TurnOffEngine(Car& car)
 {
 	//conditions for true
 	if (!car.IsTurnedOn())
@@ -155,7 +149,7 @@ bool TurnOffEngine(Car& car)
 	return false;
 }
 
-bool SetGear(Car& car, int gear) 
+bool CarController::SetGear(Car& car, int gear)
 {
 	//conditions for false
 	if (gear < MIN_GEAR || gear > MAX_GEAR)
@@ -194,7 +188,7 @@ bool SetGear(Car& car, int gear)
 	return false;
 }
 
-bool SetSpeed(Car& car, int speed)
+bool CarController::SetSpeed(Car& car, int speed)
 {
 
 	//conditions for false
@@ -231,28 +225,28 @@ void CarController::ControllCar(Car& car)
 	{
 		stringstream stringAppeal(userAppeal);
 		Commands command;
-		if (GetCommand(stringAppeal, command))
+		if (CarController::GetCommand(stringAppeal, command))
 		{
 			switch (command)
 			{
 
 			case Commands::INFO:
-				getCarInfo(car);
+				CarController::getCarInfo(car);
 				break;
 
 			case Commands::ENGINE_ON:
-				TurnOnEngine(car);
+				CarController::TurnOnEngine(car);
 				break;
 
 			case Commands::ENGINE_OFF:
-				TurnOffEngine(car);
+				CarController::TurnOffEngine(car);
 				break;
 
 			case Commands::SET_GEAR:
 				int gear;
 				if (stringAppeal >> gear)
 				{
-					SetGear(car, gear);
+					CarController::SetGear(car, gear);
 					break;
 				}
 				cout << INCORRECT_GEAR_FORMAT;
@@ -262,7 +256,7 @@ void CarController::ControllCar(Car& car)
 				int speed;
 				if (stringAppeal >> speed)
 				{
-					SetSpeed(car, speed);
+					CarController::SetSpeed(car, speed);
 					break;
 				}
 				cout << INCORRECT_SPEED_FORMAT;
@@ -270,6 +264,10 @@ void CarController::ControllCar(Car& car)
 			default:
 				break;
 			}
+		}
+		else 
+		{
+			cout << COMMAND_NOT_EXIST;
 		}
 	}
 }

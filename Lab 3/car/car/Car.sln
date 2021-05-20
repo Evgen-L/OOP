@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Car", "Car\Car.vcxproj", "{
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CarTests", "CarTests\CarTests.vcxproj", "{1A820CA2-E27F-4D71-97D6-4389AE5A50E4}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CarControllerTests", "CarControllerTests\CarControllerTests.vcxproj", "{9113E3E5-0094-40B5-AE76-1A7141ED1F0B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,14 @@ Global
 		{1A820CA2-E27F-4D71-97D6-4389AE5A50E4}.Release|x64.Build.0 = Release|x64
 		{1A820CA2-E27F-4D71-97D6-4389AE5A50E4}.Release|x86.ActiveCfg = Release|Win32
 		{1A820CA2-E27F-4D71-97D6-4389AE5A50E4}.Release|x86.Build.0 = Release|Win32
+		{9113E3E5-0094-40B5-AE76-1A7141ED1F0B}.Debug|x64.ActiveCfg = Debug|x64
+		{9113E3E5-0094-40B5-AE76-1A7141ED1F0B}.Debug|x64.Build.0 = Debug|x64
+		{9113E3E5-0094-40B5-AE76-1A7141ED1F0B}.Debug|x86.ActiveCfg = Debug|Win32
+		{9113E3E5-0094-40B5-AE76-1A7141ED1F0B}.Debug|x86.Build.0 = Debug|Win32
+		{9113E3E5-0094-40B5-AE76-1A7141ED1F0B}.Release|x64.ActiveCfg = Release|x64
+		{9113E3E5-0094-40B5-AE76-1A7141ED1F0B}.Release|x64.Build.0 = Release|x64
+		{9113E3E5-0094-40B5-AE76-1A7141ED1F0B}.Release|x86.ActiveCfg = Release|Win32
+		{9113E3E5-0094-40B5-AE76-1A7141ED1F0B}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
