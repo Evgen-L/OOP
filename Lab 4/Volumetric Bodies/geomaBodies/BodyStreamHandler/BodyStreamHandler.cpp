@@ -20,13 +20,10 @@ const string INCORRECT_VALUES_PARAMETERS = "Incorrect values of parameters\n\n";
 
 bool BodyStreamHandler::isPositiveNumbers(vector<double> numbers) const
 {
-	cout << "size:  " << numbers.size() << endl;
 	for (int i = 0; i < numbers.size(); i++)
-	{
-		cout << "num:  " << numbers[i] << endl;
+	{		
 		if (numbers[i] > 0)
-		{
-			cout << "num:  " << numbers[i] << endl;
+		{		
 			continue;
 		}
 		else
@@ -55,26 +52,15 @@ bool BodyStreamHandler::PushCylinderInVector(stringstream& parameters)
 	double radius = 0;
 	double height = 0;
 
-	if (!(parameters >> density || parameters >> radius || parameters >> height)) 
+	if (parameters >> density && parameters >> radius && parameters >> height)
 	{
-		return false;
+		vector<double>numbers = { density , radius, height };
+		if (isPositiveNumbers(numbers))
+		{
+			m_bodies.push_back(make_unique<CCylinder>(density, radius, height));
+			return true;
+		}
 	}
-	if (isPositiveNumbers({ density , radius, height }))
-	{
-		m_bodies.push_back(make_unique<CCylinder>(density, radius, height));
-		return true;
-	}
-	//parameters >> density >> radius >> height;
-	
-	/*cout << "density " << density << endl;
-	cout << "radius " << radius << endl;
-	cout << "height " << height << endl;*/
-
-	/*if (!(density == 0 || radius == 0 || height == 0))
-	{
-		m_bodies.push_back(make_unique<CCylinder>(density, radius, height));
-		return true;
-	}*/
 	return false;
 }
 
@@ -83,11 +69,14 @@ bool BodyStreamHandler:: PushConeInVector(stringstream& parameters)
 	double density = 0;
 	double radius = 0;
 	double height = 0;
-	parameters >> density >> radius >> height;
-	if (!(density == 0 || radius == 0 || height == 0))
+
+	if (parameters >> density && parameters >> radius && parameters >> height)
 	{
-		m_bodies.push_back(make_unique<CCone>(density, radius, height));
-		return true;
+		if (isPositiveNumbers({ density , radius, height }))
+		{
+			m_bodies.push_back(make_unique<CCone>(density, radius, height));
+			return true;
+		}
 	}
 	return false;
 }
@@ -98,11 +87,14 @@ bool BodyStreamHandler::PushParallelepipedInVector(stringstream& parameters)
 	double width; 
 	double depth; 
 	double height;
-	parameters >> density >> width >> depth >> height;
-	if (!(density == 0 || width == 0 || depth  == 0 || height == 0))
+
+	if (parameters >> density && parameters >> width && parameters >> depth && parameters >> height)
 	{
-		m_bodies.push_back(make_unique<CParallelepiped>(density, width, depth, height));
-		return true;
+		if (isPositiveNumbers({density, width, depth, height}))
+		{
+			m_bodies.push_back(make_unique<CParallelepiped>(density, width, depth, height));
+			return true;
+		}
 	}
 	return false;
 }
@@ -111,11 +103,14 @@ bool BodyStreamHandler::PushSphereInVector(stringstream& parameters)
 {
 	double density;
 	double radius;
-	parameters >> density >> radius;
-	if (!(density == 0 || radius == 0))
+
+	if (parameters >> density && parameters >> radius)
 	{
-		m_bodies.push_back(make_unique<CSphere>(density, radius));
-		return true;
+		if (isPositiveNumbers({ density , radius }))
+		{
+			m_bodies.push_back(make_unique<CSphere>(density, radius));
+			return true;
+		}
 	}
 	return false;
 }
