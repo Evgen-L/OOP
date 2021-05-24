@@ -32,3 +32,8 @@ string CBody::ToString()const
 	AppendProperties(strm);
 	return strm.str();
 }
+
+double CBody::GetWeightInWater() const
+{
+	return (G * GetVolume() * (m_density * DENSITY_WATER));
+}

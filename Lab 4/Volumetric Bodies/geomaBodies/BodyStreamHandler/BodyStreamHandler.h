@@ -20,9 +20,9 @@ class BodyStreamHandler
 public:
 	BodyStreamHandler();
 	void ReadBodies();
-	int FindMaxMassBody(boost::ptr_vector<CBody> bodies) const;
-	int FindLightestInWaterBody(boost::ptr_vector<CBody> bodies) const;
 	void PrintBodiesInfo() const;
+	void PrintMaxMassBody() const;
+	void PrintLightestBodyInWater() const;
 
 private:
 	bool PushBodyInVector(stringstream& paramsBody, Bodies& nameBody);

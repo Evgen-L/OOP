@@ -17,6 +17,8 @@ const string INCORRECT_FORMAT = "Incorrect format\n\n";
 const string INCORRECT_NAME_BODY_FORMAT = "Incorrect name body format\n\n";
 const string INCORRECT_PARAMETERS_BODY_FORMAT = "Incorrect name body format\n\n";
 const string INCORRECT_VALUES_PARAMETERS = "Incorrect values of parameters\n\n";
+const string BODY_WITH_MAX_MASS = "The body with max mass: \n";
+const string LIGHTEST_BODY_IN_WATER = "Lightest body in water\n";;
 
 bool BodyStreamHandler::isPositiveNumbers(vector<double> numbers) const
 {
@@ -202,4 +204,28 @@ void BodyStreamHandler::ReadBodies()
 			continue;
 		}
 	}
+}
+
+
+
+void BodyStreamHandler::PrintMaxMassBody() const 
+{
+	cout << BODY_WITH_MAX_MASS;
+	auto const ptrMaxMassBody = max_element(m_bodies.begin(), m_bodies.end(), [](unique_ptr<CBody> const& a, unique_ptr<CBody> const& b) 
+		{
+			return (*a).GetMass() < (*b).GetMass(); 
+		}
+	);
+	cout << (*ptrMaxMassBody)->ToString() << endl << endl;
+}
+
+void BodyStreamHandler::PrintLightestBodyInWater() const
+{
+	cout << LIGHTEST_BODY_IN_WATER;
+	auto const ptrLightestBodyInWater = min_element(m_bodies.begin(), m_bodies.end(), [](unique_ptr<CBody> const& a, unique_ptr<CBody> const& b)
+		{
+			return (*a).GetWeightInWater() < (*b).GetWeightInWater();
+		}
+	);
+	cout << (*ptrLightestBodyInWater)->ToString() << endl << endl;
 }

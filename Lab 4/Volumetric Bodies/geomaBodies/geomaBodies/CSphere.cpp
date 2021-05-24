@@ -24,3 +24,4 @@ void CSphere::AppendProperties(ostream& strm) const
 {
 	strm << "\tradius = " << m_radius << endl;
 }
+

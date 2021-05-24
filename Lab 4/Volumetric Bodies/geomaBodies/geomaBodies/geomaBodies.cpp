@@ -6,5 +6,7 @@ int main()
 	BodyStreamHandler handler;
 	handler.ReadBodies();
 	handler.PrintBodiesInfo();
+	handler.PrintMaxMassBody();
+	handler.PrintLightestBodyInWater();
 }
 

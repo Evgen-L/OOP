@@ -3,6 +3,9 @@
 
 using namespace std;
 
+const double G = 10;
+const double DENSITY_WATER = 1000;
+
 class CBody
 {
 public:
@@ -10,6 +13,7 @@ public:
 
 	double GetDensity() const;
 	virtual double GetVolume() const = 0;
+	double GetWeightInWater() const;
 	double GetMass() const;
 	string ToString() const;
 
