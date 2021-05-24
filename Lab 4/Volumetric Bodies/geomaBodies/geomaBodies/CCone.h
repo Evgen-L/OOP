@@ -2,7 +2,7 @@
 #include <iostream>
 #include "../geomaBodies/CBody.h"
 
-class CCone final : CBody
+class CCone final : public CBody
 {
 public:
 	CCone(double density, double radius, double height);

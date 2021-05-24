@@ -26,6 +26,6 @@ double CCone::GetVolume() const
 
 void CCone::AppendProperties(ostream& strm) const 
 {
-	strm << "\tradius = " << GetBaseRadius << endl;
-	strm << "\theight = " << GetHeight << endl;
+	strm << "\tradius = " << m_radius << endl;
+	strm << "\theight = " << m_height << endl;
 }

@@ -18,11 +18,30 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\geomaBodies\CBody.h" />
+    <ClInclude Include="..\geomaBodies\CCone.h" />
+    <ClInclude Include="..\geomaBodies\CCylinder.h" />
+    <ClInclude Include="..\geomaBodies\CParallelepiped.h" />
+    <ClInclude Include="..\geomaBodies\CSphere.h" />
+    <ClInclude Include="BodyStreamHandler.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\geomaBodies\CBody.cpp" />
+    <ClCompile Include="..\geomaBodies\CCone.cpp" />
+    <ClCompile Include="..\geomaBodies\CCylinder.cpp" />
+    <ClCompile Include="..\geomaBodies\CParallelepiped.cpp" />
+    <ClCompile Include="..\geomaBodies\CSphere.cpp" />
+    <ClCompile Include="BodyStreamHandler.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{dfda52ef-972e-4b72-9a53-28e32d156de7}</ProjectGuid>
-    <RootNamespace>geomaBodies</RootNamespace>
+    <ProjectGuid>{14a9da22-4314-4a2b-821c-e0bdba3de7df}</ProjectGuid>
+    <RootNamespace>BodyStreamHandler</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -138,26 +157,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="..\BodyStreamHandler\BodyStreamHandler.cpp" />
-    <ClCompile Include="CBody.cpp" />
-    <ClCompile Include="CCone.cpp" />
-    <ClCompile Include="CCylinder.cpp" />
-    <ClCompile Include="CParallelepiped.cpp" />
-    <ClCompile Include="CSphere.cpp" />
-    <ClCompile Include="geomaBodies.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\BodyStreamHandler\BodyStreamHandler.h" />
-    <ClInclude Include="CBody.h" />
-    <ClInclude Include="CCone.h" />
-    <ClInclude Include="CCylinder.h" />
-    <ClInclude Include="CParallelepiped.h" />
-    <ClInclude Include="CSphere.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="..\packages\boost.1.76.0.0\build\boost.targets" Condition="Exists('..\packages\boost.1.76.0.0\build\boost.targets')" />

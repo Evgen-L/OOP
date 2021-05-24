@@ -2,11 +2,11 @@
 #include <iostream>
 #include "../geomaBodies/CBody.h"
 
-class CParallelepiped final : CBody
+class CParallelepiped final : public CBody
 {
 public:
 	CParallelepiped(double density, double width, double depth, double height);
-	double GetVolume();
+	double GetVolume() const override;
 	double GetWidth();
 	double GetHeight();
 	double GetDepth();

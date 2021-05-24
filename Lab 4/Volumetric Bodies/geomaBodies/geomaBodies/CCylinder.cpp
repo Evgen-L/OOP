@@ -1,4 +1,5 @@
 #include "CCylinder.h"
+#include <sstream>
 
 const double PI = 3.141592653589793;
 
@@ -7,6 +8,9 @@ CCylinder::CCylinder(double density, double radius, double height)
 	m_radius(radius),
 	m_height(height)
 {}
+
+
+
 
 double CCylinder::GetBaseRadius()
 {
@@ -25,6 +29,6 @@ double CCylinder::GetVolume() const
 
 void CCylinder::AppendProperties(ostream& strm) const
 {
-	strm << "\tradius = " << GetBaseRadius << endl;
-	strm << "\theight = " << GetHeight<< endl;
+	strm << "\tradius = " << m_radius << endl;
+	strm << "\theight = " << m_height << endl;
 }

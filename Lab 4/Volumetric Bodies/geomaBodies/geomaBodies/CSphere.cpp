@@ -22,5 +22,5 @@ double CSphere::GetVolume()const
 
 void CSphere::AppendProperties(ostream& strm) const
 {
-	strm << "\tradius = " << GetRadius << endl;
+	strm << "\tradius = " << m_radius << endl;
 }
