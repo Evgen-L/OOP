@@ -21,7 +21,7 @@ double CCone::GetHeight()
 
 double CCone::GetVolume() const 
 {
-	return 1 / 3 * PI * pow(m_radius, 2) * m_height;
+	return  PI * pow(m_radius, 2) * m_height * 1 / 3 ;
 }
 
 void CCone::AppendProperties(ostream& strm) const 

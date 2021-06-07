@@ -1,10 +1,17 @@
 #pragma once
-#include <boost/ptr_container/ptr_vector.hpp>
+
 #include "../geomaBodies/CBody.h"
 #include "../geomaBodies/CCone.h"
 #include "../geomaBodies/CCylinder.h"
 #include "../geomaBodies/CParallelepiped.h"
 #include "../geomaBodies/CSphere.h"
+
+#include <vector>
+#include <map>
+#include <sstream>
+#include <algorithm>
+
+using namespace std;
 
 enum class Bodies
 {
@@ -18,15 +25,20 @@ enum class Bodies
 class BodyStreamHandler
 {
 public:
+	//constructor
 	BodyStreamHandler();
-	void ReadBodies();
+	
+	//basic methods
+	void ReadBodies(istream& cin);
 	void PrintBodiesInfo() const;
 	void PrintMaxMassBody() const;
 	void PrintLightestBodyInWater() const;
 
+
 private:
+	//helper methods
 	bool PushBodyInVector(stringstream& paramsBody, Bodies& nameBody);
-	void SwitchBodyToPushInVector(Bodies& nameBody, stringstream& paramsBody);
+	bool SwitchBodyToPushInVector(Bodies& nameBody, stringstream& paramsBody);
 	bool PushConeInVector(stringstream& parameters);
 	bool PushCylinderInVector(stringstream& parameters);
 	bool PushSphereInVector(stringstream& parameters);
@@ -34,6 +46,7 @@ private:
 	bool GetBody(stringstream& streamUserInput, Bodies& body);
 	bool isPositiveNumbers(vector<double> nums) const;
 
+	//variable
 	vector<unique_ptr<CBody>> m_bodies;
 };
 

@@ -1,8 +1,4 @@
 #include "BodyStreamHandler.h"
-#include <map>
-#include <sstream>
-
-using namespace std;
 
 
 const map<string, Bodies> bodies_storage = {
@@ -19,7 +15,15 @@ const string INCORRECT_PARAMETERS_BODY_FORMAT = "Incorrect name body format\n\n"
 const string INCORRECT_VALUES_PARAMETERS = "Incorrect values of parameters\n\n";
 const string BODY_WITH_MAX_MASS = "The body with max mass: \n";
 const string LIGHTEST_BODY_IN_WATER = "Lightest body in water\n";;
+const string NO_BODIES_FOR_SEARCHING_MAX_MASS = "There are no bodies for searching max mass body\n\n";
+const string NO_BODIES_FOR_SEARCHING_LIGHTEST = "There are no bodies for searching lightest body\n\n";
 
+//constructor
+BodyStreamHandler::BodyStreamHandler() 
+{
+}
+
+//helper methods
 bool BodyStreamHandler::isPositiveNumbers(vector<double> numbers) const
 {
 	for (int i = 0; i < numbers.size(); i++)
@@ -36,6 +40,7 @@ bool BodyStreamHandler::isPositiveNumbers(vector<double> numbers) const
 	return true;
 }
 
+
 bool BodyStreamHandler::GetBody(stringstream& streamUserInput, Bodies& body)
 {
 	string nameBody;
@@ -47,6 +52,7 @@ bool BodyStreamHandler::GetBody(stringstream& streamUserInput, Bodies& body)
 	}
 	return false;
 }
+
 
 bool BodyStreamHandler::PushCylinderInVector(stringstream& parameters)
 {
@@ -66,6 +72,7 @@ bool BodyStreamHandler::PushCylinderInVector(stringstream& parameters)
 	return false;
 }
 
+
 bool BodyStreamHandler:: PushConeInVector(stringstream& parameters)
 {
 	double density = 0;
@@ -82,6 +89,7 @@ bool BodyStreamHandler:: PushConeInVector(stringstream& parameters)
 	}
 	return false;
 }
+
 
 bool BodyStreamHandler::PushParallelepipedInVector(stringstream& parameters)
 {
@@ -101,6 +109,7 @@ bool BodyStreamHandler::PushParallelepipedInVector(stringstream& parameters)
 	return false;
 }
 
+
 bool BodyStreamHandler::PushSphereInVector(stringstream& parameters)
 {
 	double density;
@@ -118,7 +127,7 @@ bool BodyStreamHandler::PushSphereInVector(stringstream& parameters)
 }
 
 
-void BodyStreamHandler::SwitchBodyToPushInVector(Bodies& nameBody, stringstream& paramsBody)
+bool BodyStreamHandler::SwitchBodyToPushInVector(Bodies& nameBody, stringstream& paramsBody)
 {
 	switch (nameBody)
 	{
@@ -126,6 +135,7 @@ void BodyStreamHandler::SwitchBodyToPushInVector(Bodies& nameBody, stringstream&
 		if (!PushCylinderInVector(paramsBody))
 		{
 			cout << INCORRECT_VALUES_PARAMETERS;
+			return false;
 		}
 		break;
 
@@ -133,6 +143,7 @@ void BodyStreamHandler::SwitchBodyToPushInVector(Bodies& nameBody, stringstream&
 		if (!PushConeInVector(paramsBody))
 		{
 			cout << INCORRECT_VALUES_PARAMETERS;
+			return false;
 		}
 		break;
 
@@ -140,6 +151,7 @@ void BodyStreamHandler::SwitchBodyToPushInVector(Bodies& nameBody, stringstream&
 		if (!PushParallelepipedInVector(paramsBody))
 		{
 			cout << INCORRECT_VALUES_PARAMETERS;
+			return false;
 		}
 		break;
 
@@ -147,51 +159,38 @@ void BodyStreamHandler::SwitchBodyToPushInVector(Bodies& nameBody, stringstream&
 		if (!PushSphereInVector(paramsBody))
 		{
 			cout << INCORRECT_VALUES_PARAMETERS;
+			return false;
 		}
 		break;
 	default:
 		break;
 	}
+	return true;
 }
+
 
 bool BodyStreamHandler::PushBodyInVector(stringstream& paramsBody, Bodies& nameBody)
 {
-	if (!(nameBody == Bodies::NONE)) 
+	if (nameBody == Bodies::NONE) 
 	{
-		SwitchBodyToPushInVector(nameBody, paramsBody);
-		return true;
+		return false;
 	}
-	return false;
-}
-
-BodyStreamHandler::BodyStreamHandler() 
-{
-}
-
-
-void BodyStreamHandler::PrintBodiesInfo() const
-{
-	
-	for (auto const& pointerBody  : m_bodies)
+	if (!SwitchBodyToPushInVector(nameBody, paramsBody)) 
 	{
-		cout << pointerBody->ToString() << endl;
+		return false;
 	}
+	return true;
 }
 
-void BodyStreamHandler::ReadBodies() 
+
+
+////basic methods
+void BodyStreamHandler::ReadBodies(istream& cin)
 {
-	
-	/*cout << ENTER_NUMBER_BODIES;
-	int numberBodies = 0;
-	while (!(cin >> numberBodies))
-		cout << INCORRECT_FORMAT;
-	*/
 	string userInput;
 	while (getline(cin, userInput))
 	{
-		//cout << "userInput:  " << userInput << endl;
 		stringstream streamUserInput(userInput);
-		//cout << streamUserInput.str();
 		Bodies nameBody = Bodies::NONE;
 		if (!GetBody(streamUserInput, nameBody))
 		{
@@ -207,9 +206,23 @@ void BodyStreamHandler::ReadBodies()
 }
 
 
+void BodyStreamHandler::PrintBodiesInfo() const
+{
+	
+	for (auto const& pointerBody  : m_bodies)
+	{
+		cout << pointerBody->ToString() << endl;
+	}
+}
+
 
 void BodyStreamHandler::PrintMaxMassBody() const 
 {
+	if (m_bodies.size() == 0)
+	{
+		cout << NO_BODIES_FOR_SEARCHING_MAX_MASS;
+		return;
+	}
 	cout << BODY_WITH_MAX_MASS;
 	auto const ptrMaxMassBody = max_element(m_bodies.begin(), m_bodies.end(), [](unique_ptr<CBody> const& a, unique_ptr<CBody> const& b) 
 		{
@@ -219,10 +232,16 @@ void BodyStreamHandler::PrintMaxMassBody() const
 	cout << (*ptrMaxMassBody)->ToString() << endl << endl;
 }
 
+
 void BodyStreamHandler::PrintLightestBodyInWater() const
 {
+	if (m_bodies.size() == 0)
+	{
+		cout << NO_BODIES_FOR_SEARCHING_LIGHTEST;
+		return;
+	}
 	cout << LIGHTEST_BODY_IN_WATER;
-	auto const ptrLightestBodyInWater = min_element(m_bodies.begin(), m_bodies.end(), [](unique_ptr<CBody> const& a, unique_ptr<CBody> const& b)
+	auto const ptrLightestBodyInWater = std::min_element(m_bodies.begin(), m_bodies.end(), [](unique_ptr<CBody> const& a, unique_ptr<CBody> const& b)
 		{
 			return (*a).GetWeightInWater() < (*b).GetWeightInWater();
 		}
