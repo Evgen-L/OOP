@@ -27,12 +27,12 @@ class BodyStreamHandler
 public:
 	//constructor
 	BodyStreamHandler();
-	
+
 	//basic methods
 	void ReadBodies(istream& cin);
-	void PrintBodiesInfo() const;
-	void PrintMaxMassBody() const;
-	void PrintLightestBodyInWater() const;
+	void PrintBodiesInfo(ostream& output) const;
+	void PrintMaxMassBody(ostream& output) const;
+	void PrintLightestBodyInWater(ostream& output) const;
 
 
 private:
@@ -49,4 +49,3 @@ private:
 	//variable
 	vector<unique_ptr<CBody>> m_bodies;
 };
-

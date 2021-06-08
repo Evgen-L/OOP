@@ -13,13 +13,13 @@ const string INCORRECT_FORMAT = "Incorrect format\n\n";
 const string INCORRECT_NAME_BODY_FORMAT = "Incorrect name body format\n\n";
 const string INCORRECT_PARAMETERS_BODY_FORMAT = "Incorrect name body format\n\n";
 const string INCORRECT_VALUES_PARAMETERS = "Incorrect values of parameters\n\n";
-const string BODY_WITH_MAX_MASS = "The body with max mass: \n";
-const string LIGHTEST_BODY_IN_WATER = "Lightest body in water\n";;
+const string BODY_WITH_MAX_MASS = "The body with max mass:\n";
+const string LIGHTEST_BODY_IN_WATER = "Lightest body in water:\n";
 const string NO_BODIES_FOR_SEARCHING_MAX_MASS = "There are no bodies for searching max mass body\n\n";
 const string NO_BODIES_FOR_SEARCHING_LIGHTEST = "There are no bodies for searching lightest body\n\n";
 
 //constructor
-BodyStreamHandler::BodyStreamHandler() 
+BodyStreamHandler::BodyStreamHandler()
 {
 }
 
@@ -27,9 +27,9 @@ BodyStreamHandler::BodyStreamHandler()
 bool BodyStreamHandler::isPositiveNumbers(vector<double> numbers) const
 {
 	for (int i = 0; i < numbers.size(); i++)
-	{		
+	{
 		if (numbers[i] > 0)
-		{		
+		{
 			continue;
 		}
 		else
@@ -45,7 +45,7 @@ bool BodyStreamHandler::GetBody(stringstream& streamUserInput, Bodies& body)
 {
 	string nameBody;
 	streamUserInput >> nameBody;
-	if (bodies_storage.find(nameBody) != bodies_storage.end()) 
+	if (bodies_storage.find(nameBody) != bodies_storage.end())
 	{
 		body = bodies_storage.at(nameBody);
 		return true;
@@ -73,7 +73,7 @@ bool BodyStreamHandler::PushCylinderInVector(stringstream& parameters)
 }
 
 
-bool BodyStreamHandler:: PushConeInVector(stringstream& parameters)
+bool BodyStreamHandler::PushConeInVector(stringstream& parameters)
 {
 	double density = 0;
 	double radius = 0;
@@ -93,14 +93,14 @@ bool BodyStreamHandler:: PushConeInVector(stringstream& parameters)
 
 bool BodyStreamHandler::PushParallelepipedInVector(stringstream& parameters)
 {
-	double density;  
-	double width; 
-	double depth; 
+	double density;
+	double width;
+	double depth;
 	double height;
 
 	if (parameters >> density && parameters >> width && parameters >> depth && parameters >> height)
 	{
-		if (isPositiveNumbers({density, width, depth, height}))
+		if (isPositiveNumbers({ density, width, depth, height }))
 		{
 			m_bodies.push_back(make_unique<CParallelepiped>(density, width, depth, height));
 			return true;
@@ -171,11 +171,11 @@ bool BodyStreamHandler::SwitchBodyToPushInVector(Bodies& nameBody, stringstream&
 
 bool BodyStreamHandler::PushBodyInVector(stringstream& paramsBody, Bodies& nameBody)
 {
-	if (nameBody == Bodies::NONE) 
+	if (nameBody == Bodies::NONE)
 	{
 		return false;
 	}
-	if (!SwitchBodyToPushInVector(nameBody, paramsBody)) 
+	if (!SwitchBodyToPushInVector(nameBody, paramsBody))
 	{
 		return false;
 	}
@@ -197,7 +197,7 @@ void BodyStreamHandler::ReadBodies(istream& cin)
 			cout << INCORRECT_NAME_BODY_FORMAT;
 			continue;
 		}
-		if (!PushBodyInVector(streamUserInput, nameBody)) 
+		if (!PushBodyInVector(streamUserInput, nameBody))
 		{
 			cout << INCORRECT_PARAMETERS_BODY_FORMAT;
 			continue;
@@ -206,45 +206,44 @@ void BodyStreamHandler::ReadBodies(istream& cin)
 }
 
 
-void BodyStreamHandler::PrintBodiesInfo() const
+void BodyStreamHandler::PrintBodiesInfo(ostream& output) const
 {
-	
-	for (auto const& pointerBody  : m_bodies)
+	for (auto const& pointerBody : m_bodies)
 	{
-		cout << pointerBody->ToString() << endl;
+		output << pointerBody->ToString() << endl;
 	}
 }
 
 
-void BodyStreamHandler::PrintMaxMassBody() const 
+void BodyStreamHandler::PrintMaxMassBody(ostream& output) const
 {
 	if (m_bodies.size() == 0)
 	{
-		cout << NO_BODIES_FOR_SEARCHING_MAX_MASS;
+		output << NO_BODIES_FOR_SEARCHING_MAX_MASS;
 		return;
 	}
-	cout << BODY_WITH_MAX_MASS;
-	auto const ptrMaxMassBody = max_element(m_bodies.begin(), m_bodies.end(), [](unique_ptr<CBody> const& a, unique_ptr<CBody> const& b) 
+	output << BODY_WITH_MAX_MASS;
+	auto const ptrMaxMassBody = max_element(m_bodies.begin(), m_bodies.end(), [](unique_ptr<CBody> const& a, unique_ptr<CBody> const& b)
 		{
-			return (*a).GetMass() < (*b).GetMass(); 
+			return (*a).GetMass() < (*b).GetMass();
 		}
 	);
-	cout << (*ptrMaxMassBody)->ToString() << endl << endl;
+	output << (*ptrMaxMassBody)->ToString() << endl;
 }
 
 
-void BodyStreamHandler::PrintLightestBodyInWater() const
+void BodyStreamHandler::PrintLightestBodyInWater(ostream& output) const
 {
 	if (m_bodies.size() == 0)
 	{
-		cout << NO_BODIES_FOR_SEARCHING_LIGHTEST;
+		output << NO_BODIES_FOR_SEARCHING_LIGHTEST;
 		return;
 	}
-	cout << LIGHTEST_BODY_IN_WATER;
+	output << LIGHTEST_BODY_IN_WATER;
 	auto const ptrLightestBodyInWater = std::min_element(m_bodies.begin(), m_bodies.end(), [](unique_ptr<CBody> const& a, unique_ptr<CBody> const& b)
 		{
 			return (*a).GetWeightInWater() < (*b).GetWeightInWater();
 		}
 	);
-	cout << (*ptrLightestBodyInWater)->ToString() << endl << endl;
+	output << (*ptrLightestBodyInWater)->ToString() << endl;
 }

@@ -49,3 +49,61 @@ SCENARIO("Valid parallelepiped creation")
 	REQUIRE(parallelepiped.GetHeight() == 7.439);
 	cout << "Done" << endl << endl;
 }
+
+SCENARIO("Valid print")
+{
+	cout << "Valid max mass body print" << endl;
+	stringstream input;
+	stringstream output1;
+	stringstream output2;
+	stringstream output3;
+
+	stringstream expOutput1;
+	stringstream expOutput2;
+	stringstream expOutput3;
+
+	input << "Cylinder 10 20 10" << endl;
+	input << "Cylinder 10 20 5" << endl;
+
+
+	expOutput1 << "Cylinder:"<<endl
+		<< "\tdensity = " << "10" << endl
+		<< "\tvolume = " << "12566.37061" << endl
+		<< "\tmass = " << "125663.7061" << endl
+		<< "\tradius = " << "20" << endl
+		<< "\theight = " << "10" << endl << endl;
+
+	expOutput1 << "Cylinder:" << endl
+		<< "\tdensity = " << "10" << endl
+		<< "\tvolume = " << "6283.185307" << endl
+		<< "\tmass = " << "62831.85307" << endl
+		<< "\tradius = " << "20" << endl
+		<< "\theight = " << "5" << endl << endl;
+
+	expOutput2  << "The body with max mass:" << endl <<
+		"Cylinder:" << endl
+		<< "\tdensity = " << "10" << endl
+		<< "\tvolume = " << "12566.37061" << endl
+		<< "\tmass = " << "125663.7061" << endl
+		<< "\tradius = " << "20" << endl
+		<< "\theight = " << "10" << endl << endl;
+
+	expOutput3 << "Lightest body in water:" << endl <<
+		"Cylinder:" << endl
+		<< "\tdensity = " << "10" << endl
+		<< "\tvolume = " << "6283.185307" << endl
+		<< "\tmass = " << "62831.85307" << endl
+		<< "\tradius = " << "20" << endl
+		<< "\theight = " << "5" << endl << endl;
+
+	BodyStreamHandler handler;
+	handler.ReadBodies(input);
+	handler.PrintBodiesInfo(output1);
+	handler.PrintMaxMassBody(output2);
+	handler.PrintLightestBodyInWater(output3);
+	REQUIRE(output1.str() == expOutput1.str());
+	REQUIRE(output2.str() == expOutput2.str());
+	REQUIRE(output3.str() == expOutput3.str());
+	
+	cout << "Done" << endl << endl;
+}
