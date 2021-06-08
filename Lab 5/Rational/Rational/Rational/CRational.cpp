@@ -1,4 +1,9 @@
 #include "CRational.h"
+#include <cmath>
+
+const string DENOMINATOR_MUST_NATURAL = "denominator must be natural";
+const string CANNOT_DEVIDE_BY_0 = "can\'t devide by 0";
+const string INCORRECT_INPUT = "incorrect input.";
 
 int CRational::GetNumerator() const 
 {
@@ -29,7 +34,7 @@ int GetGreatestCommonDivisor(int numerator, int determinator)
 			determinator %= numerator;
 		}
 	}
-	return numerator + determinator;
+	return abs(numerator + determinator);
 }
 
 void CRational::Normalize() 
@@ -50,7 +55,7 @@ CRational::CRational(int numerator, int denominator)
 {
 	if (denominator <= 0)
 	{
-		throw invalid_argument("denominator must be natural");
+		throw invalid_argument(DENOMINATOR_MUST_NATURAL);
 	}
 	m_denominator = denominator;
 	m_numerator = numerator;
@@ -87,7 +92,7 @@ CRational operator*(const CRational& lhs, const CRational& rhs)
 CRational operator/(const CRational& lhs, const CRational& rhs)
 {
 	if(rhs.m_numerator == 0)
-		throw underflow_error("can\'t devide by 0");
+		throw underflow_error(CANNOT_DEVIDE_BY_0);
 	return CRational(lhs.m_numerator * rhs.m_denominator, lhs.m_denominator * rhs.m_numerator);
 }
 
@@ -135,17 +140,17 @@ istream& operator>>(istream& input,  CRational& rhs)
 	const char slash = '/';
 	if (!input >> numerator)
 	{
-		cout << "incorrect input.";
+		cout << INCORRECT_INPUT;
 		throw - 1;
 	}
 	if (!input >> symbol || symbol != slash)
 	{
-		cout << "incorrect input.";
+		cout << INCORRECT_INPUT;
 		throw - 1;
 	}
 	if (!input >> denominator)
 	{
-		cout << "incorrect input.";
+		cout << INCORRECT_INPUT;
 		throw - 1;
 	}
 	rhs = CRational(numerator, denominator);
@@ -172,6 +177,8 @@ CRational& CRational::operator*=(const CRational& rhs)
 
 CRational& CRational::operator/=(const CRational& rhs)
 {
+	if (rhs.m_numerator == 0)
+		throw underflow_error(CANNOT_DEVIDE_BY_0);
 	*this = *this / rhs;
 	return *this;
 }

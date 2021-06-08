@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{133100bf-2535-40d0-90fd-97bbfbe6edd3}</ProjectGuid>
+    <ProjectGuid>{efae89c5-1281-4314-be60-cc7e34bbf4ff}</ProjectGuid>
     <RootNamespace>RationalTests</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -140,7 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Rational\CRational.cpp" />
-    <ClCompile Include="Rational_Tests.cpp" />
+    <ClCompile Include="RationalTests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Rational\CRational.h" />

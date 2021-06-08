@@ -24,12 +24,15 @@ int main()
 	cout << rat3.GetNumerator() << endl;
 	cout << rat3.GetDenominator() << endl;*/
 
-	CRational rat = CRational(1, 3);
+	/*CRational rat = CRational(1, 3);
 	CRational rat2 = CRational(2, 1);
 	CRational rat3 = CRational();
 	rat3 += rat2;
 	cout << rat3.GetNumerator() << endl;
-	cout << rat3.GetDenominator() << endl;
+	cout << rat3.GetDenominator() << endl;*/
+	CRational rat(-10, 5);
+	cout << rat.GetNumerator() << endl;
+	cout << rat.GetDenominator() << endl;
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
