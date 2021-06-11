@@ -33,7 +33,7 @@ public:
 	friend bool operator<(const CRational& lhs, const CRational& rhs);
 	friend bool operator>(const CRational& lhs, const CRational& rhs);
 	friend ostream& operator<<(ostream& output, const CRational& rhs);
-	friend istream& operator<<(istream& output, const CRational& rhs);
+	friend istream& operator>>(istream& output, const CRational& rhs);
 	
 
 private:
