@@ -138,17 +138,17 @@ istream& operator>>(istream& input,  CRational& rhs)
 	int denominator = -1;
 	char symbol = '0';
 	const char slash = '/';
-	if (!input >> numerator)
+	if (!(input >> numerator))
 	{
 		cout << INCORRECT_INPUT;
 		throw - 1;
 	}
-	if (!input >> symbol || symbol != slash)
+	if (!(input >> symbol) || (symbol != slash))
 	{
 		cout << INCORRECT_INPUT;
 		throw - 1;
 	}
-	if (!input >> denominator)
+	if (!(input >> denominator))
 	{
 		cout << INCORRECT_INPUT;
 		throw - 1;

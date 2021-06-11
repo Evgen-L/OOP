@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "../Rational/CRational.h"
+#include <sstream>
 
 int main()
 {
@@ -30,9 +31,16 @@ int main()
 	rat3 += rat2;
 	cout << rat3.GetNumerator() << endl;
 	cout << rat3.GetDenominator() << endl;*/
-	CRational rat(-10, 5);
+
+	/*CRational rat(-10, 5);
 	cout << rat.GetNumerator() << endl;
-	cout << rat.GetDenominator() << endl;
+	cout << rat.GetDenominator() << endl;*/
+
+	istringstream stringRat("9/10");
+	CRational rat;
+	stringRat >> rat;
+	ostringstream output;
+
 }
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
