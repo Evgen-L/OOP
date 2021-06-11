@@ -215,6 +215,28 @@ void BodyStreamHandler::PrintBodiesInfo(ostream& output) const
 }
 
 
+vector <unique_ptr< CBody>>::const_iterator BodyStreamHandler::GetInfoMaxMassBody() const
+{
+	vector <unique_ptr< CBody>>::const_iterator ptrMaxMassBody = max_element(m_bodies.begin(), m_bodies.end(), [](unique_ptr<CBody> const& a, unique_ptr<CBody> const& b)
+		{
+			return (*a).GetMass() < (*b).GetMass();
+		}
+	);
+	return ptrMaxMassBody;
+}
+
+
+vector <unique_ptr< CBody>>::const_iterator BodyStreamHandler::GetInfoLightestBodyInWater() const
+{
+	auto const ptrLightestBodyInWater = std::min_element(m_bodies.begin(), m_bodies.end(), [](unique_ptr<CBody> const& a, unique_ptr<CBody> const& b)
+		{
+			return (*a).GetWeightInWater() < (*b).GetWeightInWater();
+		}
+	);
+	return ptrLightestBodyInWater;
+}
+
+
 void BodyStreamHandler::PrintMaxMassBody(ostream& output) const
 {
 	if (m_bodies.size() == 0)
@@ -222,13 +244,9 @@ void BodyStreamHandler::PrintMaxMassBody(ostream& output) const
 		output << NO_BODIES_FOR_SEARCHING_MAX_MASS;
 		return;
 	}
+	vector <unique_ptr< CBody>>::const_iterator info = GetInfoMaxMassBody();
 	output << BODY_WITH_MAX_MASS;
-	auto const ptrMaxMassBody = max_element(m_bodies.begin(), m_bodies.end(), [](unique_ptr<CBody> const& a, unique_ptr<CBody> const& b)
-		{
-			return (*a).GetMass() < (*b).GetMass();
-		}
-	);
-	output << (*ptrMaxMassBody)->ToString() << endl;
+	output << (*info)->ToString() << endl;
 }
 
 
@@ -239,11 +257,7 @@ void BodyStreamHandler::PrintLightestBodyInWater(ostream& output) const
 		output << NO_BODIES_FOR_SEARCHING_LIGHTEST;
 		return;
 	}
+	vector <unique_ptr< CBody>>::const_iterator info = GetInfoLightestBodyInWater();
 	output << LIGHTEST_BODY_IN_WATER;
-	auto const ptrLightestBodyInWater = std::min_element(m_bodies.begin(), m_bodies.end(), [](unique_ptr<CBody> const& a, unique_ptr<CBody> const& b)
-		{
-			return (*a).GetWeightInWater() < (*b).GetWeightInWater();
-		}
-	);
-	output << (*ptrLightestBodyInWater)->ToString() << endl;
+	output << (*info)->ToString() << endl;
 }

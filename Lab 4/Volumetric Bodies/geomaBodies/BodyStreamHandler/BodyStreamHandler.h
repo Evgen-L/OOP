@@ -31,6 +31,9 @@ public:
 	//basic methods
 	void ReadBodies(istream& cin);
 	void PrintBodiesInfo(ostream& output) const;
+
+	
+
 	void PrintMaxMassBody(ostream& output) const;
 	void PrintLightestBodyInWater(ostream& output) const;
 
@@ -45,6 +48,9 @@ private:
 	bool PushParallelepipedInVector(stringstream& parameters);
 	bool GetBody(stringstream& streamUserInput, Bodies& body);
 	bool isPositiveNumbers(vector<double> nums) const;
+
+	vector <unique_ptr< CBody>>::const_iterator GetInfoMaxMassBody() const;
+	vector <unique_ptr< CBody>>::const_iterator GetInfoLightestBodyInWater() const;
 
 	//variable
 	vector<unique_ptr<CBody>> m_bodies;
