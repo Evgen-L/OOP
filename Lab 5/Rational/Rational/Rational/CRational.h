@@ -21,6 +21,7 @@ public:
 	int GetNumerator()const;
 	int GetDenominator()const;
 	double ToDouble()const;
+	pair<int, CRational> ToCompoundFraction() const;
 
 	friend CRational operator+(const CRational & lhs, const CRational & rhs);
 	friend CRational operator-(const CRational & lhs, const CRational & rhs);

@@ -422,6 +422,7 @@ SCENARIO("unary operations")
 SCENARIO("input and output operations") 
 {
 	{
+		cout << "input and output operations" << endl << endl;
 		cout << "<<" << endl;
 		cout << "stringRat << 9/10" << endl;
 		ostringstream stringRat;
@@ -472,4 +473,41 @@ SCENARIO("input and output operations")
 		REQUIRE(rat2 == expecRat2);
 		cout << "Done" << endl << endl;
 	}
+}
+
+SCENARIO("ToCompoundFraction") 
+{
+	cout << "ToCompoundFraction" << endl << endl;
+	{
+		cout << "to compound fraction 5/2 be 2 1/5" << endl;
+		CRational rat(5, 2);
+		pair<int, CRational> expecCompound(2, CRational(1, 2));
+		REQUIRE(rat.ToCompoundFraction() == expecCompound);
+		cout << "Done\n\n";
+	}
+
+	{
+		cout << "to compound fraction 1/2 be 0 1/2" << endl;
+		CRational rat(1, 2);
+		pair<int, CRational> expecCompound(0, CRational(1, 2));
+		REQUIRE(rat.ToCompoundFraction() == expecCompound);
+		cout << "Done\n\n";
+	}
+
+	{
+		cout << "to compound fraction 5 be 5 0/1" << endl;
+		CRational rat(5);
+		pair<int, CRational> expecCompound(5, CRational(0, 1));
+		REQUIRE(rat.ToCompoundFraction() == expecCompound);
+		cout << "Done\n\n";
+	}
+
+	{
+		cout << "to compound fraction default rational be 0 0/1" << endl;
+		CRational rat;
+		pair<int, CRational> expecCompound(0, CRational(0, 1));
+		REQUIRE(rat.ToCompoundFraction() == expecCompound);
+		cout << "Done\n\n";
+	}
+	
 }

@@ -20,6 +20,10 @@ double CRational::ToDouble() const
 	return (double)m_numerator / (double)m_denominator;
 }
 
+pair<int, CRational> CRational::ToCompoundFraction() const
+{
+	return (pair<int, CRational>(m_numerator / m_denominator, CRational(m_numerator % m_denominator, m_denominator)));
+}
 
 int GetGreatestCommonDivisor(int numerator, int determinator) 
 {
