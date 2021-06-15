@@ -101,7 +101,7 @@ CHttpUrl::CHttpUrl
 //Getters
 string CHttpUrl::GetURL() 
 {
-    return (ProtocolString() + "//" + m_domain + FilterPort() + m_document);
+    return (ProtocolString() + "://" + m_domain + FilterPort() + m_document);
 }
  
 string CHttpUrl::GetDomain() const
@@ -139,7 +139,7 @@ Protocol CHttpUrl::GetProtocolFromRequest(string protocolStr) const
     return Protocol::WITHOUT_PROTOCOL;
 }
 
-unsigned short CHttpUrl::GetPortFromRequest(string portStr) const //правильно ли, что € вызываю здесь значение по ключу, не провер€€ есть ли у мен€ такой ключ в этом методе, но контролиру€ получение ключей выше использовани€ этого метода?
+unsigned short CHttpUrl::GetPortFromRequest(string portStr) const 
 {
     if (portStr.empty()) 
     {

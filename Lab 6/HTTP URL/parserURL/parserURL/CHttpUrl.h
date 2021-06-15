@@ -17,7 +17,7 @@ class CHttpUrl
 public:
 	// выполняет парсинг строкового представления URL-а, в случае ошибки парсинга
 	// выбрасыват исключение CUrlParsingError, содержащее текстовое описание ошибки
-	CHttpUrl(string const& url);///////////
+	CHttpUrl(string const& url);
 
 	/* инициализирует URL на основе переданных параметров.
 		При недопустимости входных параметров выбрасывает исключение
@@ -27,7 +27,7 @@ public:
 	CHttpUrl(
 		string const& domain,
 		string const& document,
-		Protocol protocol = Protocol::HTTP);///////////////////
+		Protocol protocol = Protocol::HTTP);
 
 	/* инициализирует URL на основе переданных параметров.
 		При недопустимости входных параметров выбрасывает исключение
@@ -38,7 +38,7 @@ public:
 		string const& domain,
 		string const& document,
 		Protocol protocol,
-		unsigned short port);//////////////////////////
+		unsigned short port);
 
 	// возвращает строковое представление URL-а. Порт, являющийся стандартным для
 	// выбранного протокола (80 для http и 443 для https) в эту строку
@@ -80,4 +80,3 @@ private:
 	unsigned short m_port;
 	string m_document;
 };
-

@@ -14,11 +14,6 @@ int main()
         try 
         {
             CHttpUrl url(urlStr);
-            cout << "URL: " << url.GetURL() << endl;
-            cout << "Protocol: " << url.ProtocolString() << endl;
-            cout << "Port: " << url.GetPort() << endl;
-            cout << "Document: " << url.GetDocument() << endl;
-            cout << endl;
         }
         catch (CUrlParsingError const& exp) 
         {
