@@ -39,7 +39,7 @@ public:
 
 
 private:
-	//helper methods
+	//helpful methods
 	bool PushBodyInVector(stringstream& paramsBody, Bodies& nameBody);
 	bool SwitchBodyToPushInVector(Bodies& nameBody, stringstream& paramsBody);
 	bool PushConeInVector(stringstream& parameters);
