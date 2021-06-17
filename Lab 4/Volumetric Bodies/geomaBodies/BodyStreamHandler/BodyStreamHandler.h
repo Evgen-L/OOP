@@ -37,6 +37,8 @@ public:
 	void PrintMaxMassBody(ostream& output) const;
 	void PrintLightestBodyInWater(ostream& output) const;
 
+	vector <unique_ptr< CBody>>::const_iterator GetInfoMaxMassBody() const;
+	vector <unique_ptr< CBody>>::const_iterator GetInfoLightestBodyInWater() const;
 
 private:
 	//helpful methods
@@ -49,8 +51,7 @@ private:
 	bool GetBody(stringstream& streamUserInput, Bodies& body);
 	bool isPositiveNumbers(vector<double> nums) const;
 
-	vector <unique_ptr< CBody>>::const_iterator GetInfoMaxMassBody() const;
-	vector <unique_ptr< CBody>>::const_iterator GetInfoLightestBodyInWater() const;
+	
 
 	//variable
 	vector<unique_ptr<CBody>> m_bodies;

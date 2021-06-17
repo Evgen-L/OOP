@@ -107,3 +107,36 @@ SCENARIO("Valid print")
 	
 	cout << "Done" << endl << endl;
 }
+
+SCENARIO("Valid search max mass and lightest bodies") 
+{
+	cout << "Valid search max mass and lightest bodies" << endl;
+
+	stringstream input;
+	input << "Cylinder 10 20 10" << endl;
+	input << "Cylinder 10 20 5" << endl;
+
+	vector<unique_ptr<CBody>> vectorWithOneBody1;
+	vector<unique_ptr<CBody>> vectorWithOneBody2;
+	vectorWithOneBody1.push_back(make_unique<CCylinder>(10, 20, 10));
+	vectorWithOneBody2.push_back(make_unique<CCylinder>(10, 20, 5));
+
+	vector <unique_ptr< CBody>>::const_iterator expMaxMassBody = std::max_element(vectorWithOneBody1.begin(), vectorWithOneBody1.end(), [](unique_ptr<CBody> const& a, unique_ptr<CBody> const& b)
+		{
+			return (*a).GetMass() < (*b).GetMass();
+		}
+	);
+	vector <unique_ptr< CBody>>::const_iterator expLightesBody = min_element(vectorWithOneBody2.begin(), vectorWithOneBody2.end(), [](unique_ptr<CBody> const& a, unique_ptr<CBody> const& b)
+		{
+			return (*a).GetWeightInWater() < (*b).GetWeightInWater();
+		}
+	);
+	
+	BodyStreamHandler handler;
+	handler.ReadBodies(input);
+	
+	REQUIRE((*handler.GetInfoMaxMassBody())->ToString() == (*expMaxMassBody)->ToString());
+	REQUIRE((*handler.GetInfoLightestBodyInWater())->ToString() == (*expLightesBody)->ToString());
+
+	cout << "Done" << endl << endl;
+}
