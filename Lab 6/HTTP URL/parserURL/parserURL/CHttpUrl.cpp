@@ -24,6 +24,10 @@ const int DOMAIN_INDEX = 2;
 const int PORT_INDEX = 3;
 const int DOCUMENT_INDEX = 4;
 
+const size_t NOT_FOUND = string::npos;
+
+const string ALLOWED_DOMAIN_SYMBOLS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~:/?#[]@!$&'()*+,;=";
+
 //construtctors
 CHttpUrl::CHttpUrl(string const& url) 
 {
@@ -69,7 +73,7 @@ CHttpUrl::CHttpUrl
 {
     if (!isCorrectDomain()) 
     {
-        throw CUrlParsingError("Incorrect domain");
+        throw CUrlParsingError("Invalid domain");
     }
     addMissingSlash(m_document);
     m_port = ports.at(m_protocol);
@@ -198,8 +202,14 @@ bool CHttpUrl::isCorrectDomain()  const
     {
         return false;
     }
+    if (m_domain.find_first_not_of(ALLOWED_DOMAIN_SYMBOLS) != NOT_FOUND)
+    {
+        return false;
+    }
     return true;
 }
+
+
 bool CHttpUrl::isCorrectPort() const
 {
     return (m_port > 0 && m_port < 65535);

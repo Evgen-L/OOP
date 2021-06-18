@@ -80,6 +80,14 @@ SCENARIO("constructors")
 		cout << "Done\n\n\n\n";
 	}
 
+	{
+		cout << "domain with forbidden symbol \"№\" call error \n";
+		cout << "https://www.mysite№1.com:8080" << endl;
+		REQUIRE_THROWS(CHttpUrl("www.mysite№1.com"));
+		cout << "Done\n\n";
+	}
+
+
 
 	cout << "with domain, document, protocol\n\n";
 	{
@@ -122,6 +130,17 @@ SCENARIO("constructors")
 		cout << "Done\n\n\n\n";
 	}
 
+	{
+		cout << "domain with forbidden symbol \"№\" call error \n";
+		cout << "www.mysite№.com, \"\", HTTP" << endl;
+		REQUIRE_THROWS(CHttpUrl ("www.mysite№.com", "", Protocol::HTTP));
+		cout << "Done\n\n";
+	}
+
+
+
+
+
 	cout << "with domain, document, protocol, port\n\n";
 	{
 		cout << "with port = 80 url.GetURL() wiil be without port\n";
@@ -156,6 +175,13 @@ SCENARIO("constructors")
 		cout << "with empty domain will be error\n";
 		cout << "\"\", \"/document.doc\", HTTP, 80" << endl;
 		REQUIRE_THROWS(CHttpUrl("", "/document.doc", Protocol::HTTP, 80));
+		cout << "Done\n\n";
+	}
+
+	{
+		cout << "domain with forbidden symbol \"№\" call error \n";
+		cout << "www.mysite№.com, \"\", HTTP, 80" << endl;
+		REQUIRE_THROWS(CHttpUrl("www.mysite№.com", "", Protocol::HTTP, 80));
 		cout << "Done\n\n";
 	}
 }
