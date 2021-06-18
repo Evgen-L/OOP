@@ -87,6 +87,15 @@ SCENARIO("constructors")
 		cout << "Done\n\n";
 	}
 
+	{
+		cout << "doсument with forbidden symbol \"№\" call error \n";
+		cout << "http://www.mysite.com/docs/document№1.html?page=30&lang=en#title" << endl;
+		REQUIRE_THROWS(CHttpUrl("http://www.mysite.com/docs/document№1.html?page=30&lang=en#title"));
+		cout << "Done\n\n";
+	}
+
+
+
 
 
 	cout << "with domain, document, protocol\n\n";
@@ -137,6 +146,13 @@ SCENARIO("constructors")
 		cout << "Done\n\n";
 	}
 
+	{
+		cout << "document with forbidden symbol \"№\" call error \n";
+		cout << "www.mysite.com, \"№\", HTTP" << endl;
+		REQUIRE_THROWS(CHttpUrl("www.mysite№.com", "№", Protocol::HTTP));
+		cout << "Done\n\n";
+	}
+
 
 
 
@@ -182,6 +198,13 @@ SCENARIO("constructors")
 		cout << "domain with forbidden symbol \"№\" call error \n";
 		cout << "www.mysite№.com, \"\", HTTP, 80" << endl;
 		REQUIRE_THROWS(CHttpUrl("www.mysite№.com", "", Protocol::HTTP, 80));
+		cout << "Done\n\n";
+	}
+
+	{
+		cout << "document with forbidden symbol \"№\" call error \n";
+		cout << "www.mysite.com, \"№\", HTTP, 80" << endl;
+		REQUIRE_THROWS(CHttpUrl("www.mysite№.com", "№", Protocol::HTTP, 80));
 		cout << "Done\n\n";
 	}
 }

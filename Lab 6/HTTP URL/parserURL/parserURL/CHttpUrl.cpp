@@ -26,7 +26,7 @@ const int DOCUMENT_INDEX = 4;
 
 const size_t NOT_FOUND = string::npos;
 
-const string ALLOWED_DOMAIN_SYMBOLS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~:/?#[]@!$&'()*+,;=";
+const string ALLOWED_URL_SYMBOLS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~:/?#[]@!$&'()*+,;=";
 
 //construtctors
 CHttpUrl::CHttpUrl(string const& url) 
@@ -54,7 +54,10 @@ CHttpUrl::CHttpUrl(string const& url)
         {
             throw CUrlParsingError("Invalid port");
         }
-
+        if (!isCorrectDocument())
+        {
+            throw CUrlParsingError("Incorrect document");
+        }
         addMissingSlash(m_document);
         return;
     }
@@ -74,6 +77,10 @@ CHttpUrl::CHttpUrl
     if (!isCorrectDomain()) 
     {
         throw CUrlParsingError("Invalid domain");
+    }
+    if (!isCorrectDocument())
+    {
+        throw CUrlParsingError("Incorrect document");
     }
     addMissingSlash(m_document);
     m_port = ports.at(m_protocol);
@@ -98,6 +105,10 @@ CHttpUrl::CHttpUrl
     if (!isCorrectPort())
     {
         throw CUrlParsingError("Incorrect port");
+    }
+    if (!isCorrectDocument()) 
+    {
+        throw CUrlParsingError("Incorrect document");
     }
     addMissingSlash(m_document);
 }
@@ -202,7 +213,20 @@ bool CHttpUrl::isCorrectDomain()  const
     {
         return false;
     }
-    if (m_domain.find_first_not_of(ALLOWED_DOMAIN_SYMBOLS) != NOT_FOUND)
+    if (m_domain.find_first_not_of(ALLOWED_URL_SYMBOLS) != NOT_FOUND)
+    {
+        return false;
+    }
+    return true;
+}
+
+bool CHttpUrl::isCorrectDocument() const
+{
+    if (m_document.empty()) 
+    {
+        return true;
+    }
+    if (m_document.find_first_not_of(ALLOWED_URL_SYMBOLS) != NOT_FOUND)
     {
         return false;
     }

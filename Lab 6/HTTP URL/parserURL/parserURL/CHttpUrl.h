@@ -70,6 +70,7 @@ private:
 	bool isCorrectProtocol() const;
 	bool isCorrectDomain() const;
 	bool isCorrectPort() const;
+	bool isCorrectDocument() const;
 	void addMissingSlash(string& document);
 	string FilterPort();
 
