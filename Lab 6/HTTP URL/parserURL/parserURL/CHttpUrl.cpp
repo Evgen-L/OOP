@@ -35,7 +35,8 @@ CHttpUrl::CHttpUrl(string const& url)
     lowerUrl.resize(url.length());
     transform(url.begin(), url.end(), lowerUrl.begin(), [](char ch) {return tolower(ch); });
     smatch splitedUrl;
-    Regex regex("(.+):\/\/([a-zA-Z0-9.]+)(:[0-9]+)?\/?(.*)?");
+    //Regex regex("(.+):\/\/([a-zA-Z0-9.]+)(:[0-9]+)?\/?(.*)?");
+    Regex regex("(.+):\/\/([^{\/:}]+)(:[0-9]+)?\/?(.*)?");
     if (regex_match(lowerUrl, splitedUrl, regex)) 
     {
         string protocolStr = splitedUrl[PROTOCOL_INDEX];

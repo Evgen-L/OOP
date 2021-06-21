@@ -6,7 +6,7 @@
 using namespace std;
 
 const string NO_PRIME_NUMBERS = "there are no prime numbers in this sequence";
-const int MAX_UPPER_BOUND = 1000000;
+const int MAX_UPPER_BOUND = 100000000;
 
 vector<bool> GetPrimeNumbersList(int upperBound)
 {

@@ -34,22 +34,13 @@ SCENARIO("GeneratePrimeNumbersSet: upperBound > 0")
 	cout << "Done" << endl;
 }
 
-SCENARIO("GeneratePrimeNumbersSet: upperBound > 1000000")
+SCENARIO("GeneratePrimeNumbersSet: upperBound > 100000000")
 {
-	cout << "GeneratePrimeNumbersSet: upperBound > 1000000" << endl;
+	cout << "GeneratePrimeNumbersSet: upperBound > 100000000" << endl;
 	std::set<int> set;
-	int upperBound = 1000001;
+	int upperBound = 100000001;
 	set = GeneratePrimeNumbersSet(upperBound);
 	REQUIRE(set.size() == 0);
 	cout << "Done" << endl;
 }
 
-SCENARIO("GeneratePrimeNumbersSet: upperBound = 1000000")
-{
-	cout << "GeneratePrimeNumbersSet: upperBound = 1000000" << endl;
-	std::set<int> set;
-	int upperBound = 1000000;
-	set = GeneratePrimeNumbersSet(upperBound);
-	REQUIRE(set.size() == 78499);
-	cout << "Done" << endl;
-}
